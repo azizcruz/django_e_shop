@@ -1,0 +1,60 @@
+{% extends "shop/base.html" %}
+
+{% block title_ %}
+    {% if category %}
+      {{ category.name }}
+      {% else %}
+        Products
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="list-wrapper">
+  <div class="row">
+    <div class="side-bar col-sm-12 col-md-3">
+      <h3>Categories</h3>
+        <ul class="nav flex-column">
+          <li class="nav-item
+          {% if category == 'all' %}
+              active
+          {% endif %}
+          ">
+            <a class="nav-link" href="{% url 'shop:list_product_category' category_slug='all' %}">All</a>
+          </li>
+
+          {% for cat in categories %}
+            <li class="nav-item
+            {% if category.slug == cat.slug %}
+              active
+            {% endif %}
+            ">
+              <a class="nav-link" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </ul>
+    </div>
+    <div class="mt-2 d-sm-block d-md-none"> <br> </div>
+    <div class="main-content col-sm-12 col-md-9">
+        <div class="row">
+          {% if products %}
+            {% for prod in products  %}
+            <div class="col-sm-12 col-md-4">
+              <div class="card">
+                <img class="card-img-top" src="{{ prod.Image.url }}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title"> <a href="{{ prod.get_absolute_url }}">{{ prod.name }}</a> </h5>
+                    <span class="price">Price: ${{ prod.price }}</span>
+                  </div>
+                </div>
+            </div>
+            <div class="mt-2 d-sm-block d-md-none"> <br> </div>
+            {% endfor %}
+            {% else %}
+            No products in stock
+          {% endif %}
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

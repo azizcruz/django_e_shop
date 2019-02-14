@@ -1,0 +1,38 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title_ %}
+  {{ product.name }}
+{% endblock %}
+{% block content %}
+<div class="product-detail">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <img src="{{ product.Image.url }}" class="img-fluid img-thumbnail" alt="product image">
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <h1>{{ product.name }}</h1>
+      <p>category: <a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></p>
+      <p>Price: ${{ product.price }}</p>
+      {{ product.description | linebreaks }}
+
+      <form class="" action="{% url 'cart:add_to_cart' id=product.id %}" method="post">
+            {% csrf_token %}
+            {{ cart_form }}
+            <button type="submit" name="button" class="btn btn-primary">Add</button>
+      </form>
+
+     
+      {% if wishlist_form %}  <!-- Check if it is in wishlist -->
+        <form action="{% url 'wishlist:add_to_wishlist' %}" method='post'>
+          {% csrf_token %}
+          {{ wishlist_form }}
+          <button type='submit' class="btn">Add To Wishlist <img src="{% static "img/heart.png" %}" width=20 alt="heart"> </button>
+        </form>
+      {% else %}
+        <button class='btn' disabled>Added to wishlist</button>
+      {% endif %}
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h3>please type your username to send you the activation link.</h3>
+    <div class="row">
+        <div class="col-sm-12 col-md-4 offset-md-4">
+            <form action="{% url 'shop_auth:request_activation' %}" method='post'>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class='btn btn-primary'>Send Link</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

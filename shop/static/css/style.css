@@ -1,0 +1,29 @@
+.product-detail,
+.list-wrapper {
+    margin: 20px 0;
+}
+
+.container.main {
+    min-height: 100vh;
+}
+
+.nav-item a {
+    color: #555
+}
+
+.nav-item.active {
+    background-color: #007bff;
+}
+
+.nav-item.active a {
+    color: #fff;
+}
+
+img.cart-img {
+    width: 20px;
+    height: 20px;
+}
+
+.register-form textarea {
+    max-height: 100px;
+}
